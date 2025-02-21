@@ -17,6 +17,7 @@ class StoreCalendarEventRequestTest extends TestCase
             'location'  => 'Medellín, Colombia',
             'start'     => now()->addDay()->toISOString(),
             'end'       => now()->addDays(2)->toISOString(),
+            'capacity' => 50
         ];
 
         $request = new StoreCalendarEventRequest();
@@ -27,7 +28,7 @@ class StoreCalendarEventRequestTest extends TestCase
 
     public function test_store_calendar_event_request_validation_fails_with_missing_fields()
     {
-        $data = []; // Empty data
+        $data = [];
 
         $request = new StoreCalendarEventRequest();
         $validator = Validator::make($data, $request->rules());

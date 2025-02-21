@@ -33,7 +33,9 @@ class CalendarEventFactory extends Factory
             'location'    => $this->faker->address,
             'start'       => $startDateTime,
             'end'         => $endDateTime,
-            'created_by' => User::factory()
+            'created_by' => User::factory(),
+            'capacity'    => $this->faker->numberBetween(1, 100),
+            'image'       => $this->faker->imageUrl(640, 480, 'events', true, 'Event'),
         ];
     }
 }

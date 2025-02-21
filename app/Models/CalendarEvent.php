@@ -18,6 +18,8 @@ class CalendarEvent extends Model
         'start',
         'end',
         'created_by',
+        'capacity',
+        'image',
     ];
 
     protected $casts = [

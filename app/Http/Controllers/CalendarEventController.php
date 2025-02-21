@@ -23,26 +23,32 @@ class CalendarEventController extends Controller
     }
 
     /**
-     * Store a newly created event.
-     */
-    public function store(StoreCalendarEventRequest $request)
-    {
-        $event = CalendarEvent::create(array_merge($request->validated(), [
-            'created_by' => Auth::id(),
-        ]));
-
-        return response()->json([
-            'message' => 'Event created successfully',
-            'event'   => new CalendarEventResource($event),
-        ], 201);
-    }
-
-    /**
      * Display a specific event.
      */
     public function show(CalendarEvent $event)
     {
         return new CalendarEventResource($event);
+    }
+
+    /**
+     * Store a newly created event.
+     */
+    public function store(StoreCalendarEventRequest $request)
+    {
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('events', 'public');
+        }
+
+        $data['created_by'] = auth()->id();
+
+        $event = CalendarEvent::create($data);
+
+        return response()->json([
+            'message' => 'Event created successfully',
+            'data' => new CalendarEventResource($event)
+        ], 201);
     }
 
     /**

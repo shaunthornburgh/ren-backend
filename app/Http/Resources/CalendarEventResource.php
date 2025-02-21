@@ -22,6 +22,8 @@ class CalendarEventResource extends JsonResource
             'location' => $this->location,
             'start' => $this->start->toIso8601String(),
             'end' => $this->end->toIso8601String(),
+            'capacity'   => $this->capacity,
+            'image'      => $this->image,
             'created_by' => [
                 'id' => $this->creator->id,
                 'name' => $this->creator->name,

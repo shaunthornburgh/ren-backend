@@ -29,6 +29,8 @@ class CalendarEventResourceTest extends TestCase
         $this->assertArrayHasKey('location', $response);
         $this->assertArrayHasKey('start', $response);
         $this->assertArrayHasKey('end', $response);
+        $this->assertArrayHasKey('capacity', $response);
+        $this->assertArrayHasKey('image', $response);
         $this->assertArrayHasKey('created_by', $response);
         $this->assertArrayHasKey('created_at', $response);
         $this->assertArrayHasKey('updated_at', $response);
@@ -39,6 +41,8 @@ class CalendarEventResourceTest extends TestCase
         $this->assertEquals($event->location, $response['location']);
         $this->assertEquals($event->start->toIso8601String(), $response['start']);
         $this->assertEquals($event->end->toIso8601String(), $response['end']);
+        $this->assertEquals($event->capacity, $response['capacity']);
+        $this->assertEquals($event->image, $response['image']);
         $this->assertEquals($user->id, $response['created_by']['id']);
         $this->assertEquals($user->name, $response['created_by']['name']);
     }

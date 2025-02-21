@@ -29,6 +29,8 @@ class UpdateCalendarEventRequest extends FormRequest
             'location'    => 'sometimes|string',
             'start'       => 'sometimes|date',
             'end'         => 'sometimes|date|after:start',
+            'capacity'    => 'sometimes|integer|min:1',
+            'image'       => 'sometimes|image',
         ];
     }
 }

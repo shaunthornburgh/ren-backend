@@ -38,6 +38,8 @@ class UserCalendarEventControllerTest extends TestCase
                     'location',
                     'start',
                     'end',
+                    'image',
+                    'capacity',
                     'created_at',
                     'updated_at',
                 ],

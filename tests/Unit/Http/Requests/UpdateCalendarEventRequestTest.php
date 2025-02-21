@@ -12,7 +12,7 @@ class UpdateCalendarEventRequestTest extends TestCase
     {
         $data = [
             'title' => 'Updated Event Title',
-        ]; // Partial update
+        ];
 
         $request = new UpdateCalendarEventRequest();
         $validator = Validator::make($data, $request->rules());

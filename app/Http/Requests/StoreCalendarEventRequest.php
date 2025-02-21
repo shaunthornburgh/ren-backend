@@ -29,6 +29,8 @@ class StoreCalendarEventRequest extends FormRequest
             'location'    => 'required|string',
             'start'       => 'required|date',
             'end'         => 'required|date|after:start',
+            'capacity'    => 'required|integer|min:1',
+            'image'       => 'nullable|image',
         ];
     }
 }
