@@ -73,10 +73,8 @@ class CalendarEventControllerTest extends TestCase
     {
         Sanctum::actingAs($this->user);
 
-        // Get raw data from the factory.
         $rawData = CalendarEvent::factory()->raw();
 
-        // Override the image field with a fake file upload.
         $rawData['image'] = UploadedFile::fake()->image('event.jpg');
 
         $response = $this->post('/api/events', $rawData);
@@ -107,7 +105,6 @@ class CalendarEventControllerTest extends TestCase
         $updatedData = [
             'title'    => 'Updated Event Title',
             'capacity' => $this->faker->numberBetween(1, 100),
-            // Optionally, you can include an updated image if needed.
         ];
 
         $response = $this->putJson("/api/events/{$this->event->id}", $updatedData);

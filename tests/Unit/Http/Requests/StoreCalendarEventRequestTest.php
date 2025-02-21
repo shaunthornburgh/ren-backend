@@ -17,7 +17,8 @@ class StoreCalendarEventRequestTest extends TestCase
             'location'  => 'Medellín, Colombia',
             'start'     => now()->addDay()->toISOString(),
             'end'       => now()->addDays(2)->toISOString(),
-            'capacity' => 50
+            'capacity' => 50,
+            'ticket_price' => 100
         ];
 
         $request = new StoreCalendarEventRequest();
@@ -47,7 +48,7 @@ class StoreCalendarEventRequestTest extends TestCase
             'summary'   => 'VueJS event',
             'overview'  => 'An event for VueJS developers.',
             'location'  => 'Bogotá, Colombia',
-            'start'     => 'invalid-date', // Invalid date format
+            'start'     => 'invalid-date',
             'end'       => 'invalid-date',
         ];
 

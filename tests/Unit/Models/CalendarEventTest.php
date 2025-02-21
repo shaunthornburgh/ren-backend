@@ -26,6 +26,7 @@ class CalendarEventTest extends TestCase
                 'end',
                 'capacity',
                 'image',
+                'ticket_price',
                 'created_by',
                 'created_at',
                 'updated_at'

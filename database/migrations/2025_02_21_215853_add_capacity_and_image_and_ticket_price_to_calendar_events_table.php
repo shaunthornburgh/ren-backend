@@ -15,6 +15,7 @@ return new class extends Migration
             Schema::table('calendar_events', function (Blueprint $table) {
                 $table->integer('capacity');
                 $table->string('image')->nullable();
+                $table->decimal('ticket_price', 8, 2)->nullable()->default(0);
             });
         });
     }
@@ -28,6 +29,7 @@ return new class extends Migration
             Schema::table('calendar_events', function (Blueprint $table) {
                 $table->dropColumn('capacity');
                 $table->dropColumn('image');
+                $table->decimal('ticket_price', 8, 2)->nullable()->default(0);
             });
         });
     }

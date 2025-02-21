@@ -20,6 +20,7 @@ class CalendarEvent extends Model
         'created_by',
         'capacity',
         'image',
+        'ticket_price'
     ];
 
     protected $casts = [
