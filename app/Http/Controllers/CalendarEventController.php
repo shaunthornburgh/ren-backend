@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCalendarEventRequest;
 use App\Http\Resources\CalendarEventResource;
 use App\Models\CalendarEvent;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
 class CalendarEventController extends Controller
@@ -16,7 +17,7 @@ class CalendarEventController extends Controller
     /**
      * Display a listing of all events.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         return CalendarEventResource::collection(CalendarEvent::latest()->get());
     }
