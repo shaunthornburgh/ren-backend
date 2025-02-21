@@ -23,12 +23,15 @@ class UpdateCalendarEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'sometimes|string|max:50',
-            'summary'     => 'sometimes|string|max:250',
-            'overview'    => 'sometimes|string',
-            'location'    => 'sometimes|string',
-            'start'       => 'sometimes|date',
-            'end'         => 'sometimes|date|after:start',
+            'title'         => 'sometimes|string|max:50',
+            'summary'       => 'sometimes|string|max:250',
+            'overview'      => 'sometimes|string',
+            'location'      => 'sometimes|string',
+            'start'         => 'sometimes|date|after_or_equal:' . now()->toDateString(),
+            'end'           => 'sometimes|date|after:start',
+            'capacity'      => 'sometimes|integer|min:1',
+            'image'         => 'sometimes|image',
+            'ticket_price'  => 'sometimes|integer',
         ];
     }
 }

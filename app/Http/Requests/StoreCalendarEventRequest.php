@@ -23,12 +23,15 @@ class StoreCalendarEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'required|string|max:50',
-            'summary'     => 'required|string|max:250',
-            'overview'    => 'required|string',
-            'location'    => 'required|string',
-            'start'       => 'required|date',
-            'end'         => 'required|date|after:start',
+            'title'         => 'required|string|max:50',
+            'summary'       => 'required|string|max:250',
+            'overview'      => 'required|string',
+            'location'      => 'required|string',
+            'start'         => 'required|date|after_or_equal:' . now()->toDateString(),
+            'end'           => 'required|date|after:start',
+            'capacity'      => 'required|integer|min:1',
+            'image'         => 'nullable|image',
+            'ticket_price'  => 'nullable|integer',
         ];
     }
 }

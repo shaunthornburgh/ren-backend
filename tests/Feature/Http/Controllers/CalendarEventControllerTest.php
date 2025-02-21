@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Http\UploadedFile;
 
 class CalendarEventControllerTest extends TestCase
 {
@@ -21,7 +22,7 @@ class CalendarEventControllerTest extends TestCase
         parent::setUp();
 
         $this->user = User::factory()->create();
-        
+
         $this->event = CalendarEvent::factory()->create([
             'created_by' => $this->user->id,
         ]);
@@ -33,7 +34,18 @@ class CalendarEventControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                '*' => ['id', 'title', 'summary', 'overview', 'location', 'start', 'end', 'created_by']
+                '*' => [
+                    'id',
+                    'title',
+                    'summary',
+                    'overview',
+                    'location',
+                    'start',
+                    'end',
+                    'capacity',
+                    'image',
+                    'created_by'
+                ]
             ]);
     }
 
@@ -43,8 +55,10 @@ class CalendarEventControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'id' => $this->event->id,
-                'title' => $this->event->title,
+                'id'       => $this->event->id,
+                'title'    => $this->event->title,
+                'capacity' => $this->event->capacity,
+                'image'    => $this->event->image,
             ]);
     }
 
@@ -59,16 +73,11 @@ class CalendarEventControllerTest extends TestCase
     {
         Sanctum::actingAs($this->user);
 
-        $eventData = [
-            'title'       => $this->faker->sentence,
-            'summary'     => $this->faker->text(50),
-            'overview'    => $this->faker->paragraph,
-            'location'    => $this->faker->address,
-            'start'       => now()->addDays(1)->toISOString(),
-            'end'         => now()->addDays(1)->addHours(2)->toISOString(),
-        ];
+        $rawData = CalendarEvent::factory()->raw();
 
-        $response = $this->postJson('/api/events', $eventData);
+        $rawData['image'] = UploadedFile::fake()->image('event.jpg');
+
+        $response = $this->post('/api/events', $rawData);
 
         $response->assertStatus(201)
             ->assertJson([
@@ -76,8 +85,9 @@ class CalendarEventControllerTest extends TestCase
             ]);
 
         $this->assertDatabaseHas('calendar_events', [
-            'title' => $eventData['title'],
-            'summary' => $eventData['summary'],
+            'title'    => $rawData['title'],
+            'summary'  => $rawData['summary'],
+            'capacity' => $rawData['capacity'],
         ]);
     }
 
@@ -93,7 +103,8 @@ class CalendarEventControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $updatedData = [
-            'title' => 'Updated Event Title',
+            'title'    => 'Updated Event Title',
+            'capacity' => $this->faker->numberBetween(1, 100),
         ];
 
         $response = $this->putJson("/api/events/{$this->event->id}", $updatedData);
@@ -104,8 +115,9 @@ class CalendarEventControllerTest extends TestCase
             ]);
 
         $this->assertDatabaseHas('calendar_events', [
-            'id' => $this->event->id,
-            'title' => 'Updated Event Title',
+            'id'       => $this->event->id,
+            'title'    => 'Updated Event Title',
+            'capacity' => $updatedData['capacity'],
         ]);
     }
 

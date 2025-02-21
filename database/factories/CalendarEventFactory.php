@@ -27,13 +27,15 @@ class CalendarEventFactory extends Factory
         $endDateTime = (clone $startDateTime)->addHours($this->faker->numberBetween(1, 6));
 
         return [
-            'title'       => $this->faker->sentence(3),
-            'summary'     => $this->faker->text(50),
+            'title'       => $this->faker->text(50),
+            'summary'     => $this->faker->text(250),
             'overview'    => $this->faker->paragraph,
             'location'    => $this->faker->address,
             'start'       => $startDateTime,
             'end'         => $endDateTime,
-            'created_by' => User::factory()
+            'created_by' => User::factory(),
+            'capacity'    => $this->faker->numberBetween(1, 100),
+            'image'       => $this->faker->imageUrl(640, 480, 'events', true, 'Event'),
         ];
     }
 }
