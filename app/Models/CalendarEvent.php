@@ -26,6 +26,8 @@ class CalendarEvent extends Model
     protected $casts = [
         'start' => 'datetime',
         'end'   => 'datetime',
+        'capacity' => 'integer',
+        'ticket_price' => 'float',
     ];
 
     /**

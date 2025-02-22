@@ -31,7 +31,7 @@ class StoreCalendarEventRequest extends FormRequest
             'end'           => 'required|date|after:start',
             'capacity'      => 'required|integer|min:1',
             'image'         => 'nullable|image',
-            'ticket_price'  => 'nullable|integer',
+            'ticket_price'  => 'nullable|numeric|min:0',
         ];
     }
 }
