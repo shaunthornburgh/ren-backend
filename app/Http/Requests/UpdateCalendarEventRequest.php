@@ -31,7 +31,7 @@ class UpdateCalendarEventRequest extends FormRequest
             'end'           => 'sometimes|date|after:start',
             'capacity'      => 'sometimes|integer|min:1',
             'image'         => 'sometimes|image',
-            'ticket_price'  => 'sometimes|integer',
+            'ticket_price'  => 'nullable|numeric|min:0',
         ];
     }
 }
